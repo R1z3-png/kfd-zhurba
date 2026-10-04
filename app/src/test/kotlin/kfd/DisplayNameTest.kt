@@ -13,4 +13,18 @@ class DisplayNameTest {
     fun handlesNull() {
         assertEquals("Гость", displayName(null))
     }
+
+    @Test
+    fun handlestrim() {
+        assertEquals("Анна", displayName(" Анна "))
+    }
+
+    @Test
+    fun handlesEmpty() {
+        assertEquals("Гость", displayName(""))
+    }
+    @Test
+    fun handlesWhitespace() {
+        assertEquals("Гость", displayName("  "))
+    }
 }
