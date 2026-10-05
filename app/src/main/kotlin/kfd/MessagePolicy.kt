@@ -18,5 +18,5 @@ fun canSendMessage(
     if (text.isBlank()) {
         return false
     }
-    return text.length < maxLength
+    return text.length <= maxLength
 }

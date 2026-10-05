@@ -11,14 +11,19 @@ class MessagePolicyTest {
     }
     @Test
     fun denysLongMessageWithDefaultLimit() {
-        assertFalse(canSendMessage("Приветjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" +
-                "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" +
-                "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" +
-                "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"))
+        assertFalse(canSendMessage("А".repeat(141)))
+    }
+    @Test
+    fun acceptsLongMessageWOnDefaultLimitsBorder() {
+        assertTrue(canSendMessage("А".repeat(140)))
     }
     @Test
     fun denysLongMessageWithShortLimit() {
         assertFalse(canSendMessage("Привет", maxLength = 1))
+    }
+    @Test
+    fun handlesMessageOnLimitsBorder() {
+        assertTrue(canSendMessage("Cat", maxLength = 3))
     }
     @Test
     fun denysMessageWithNegativeLimit() {
