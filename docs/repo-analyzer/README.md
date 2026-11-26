@@ -54,6 +54,29 @@
 Подписи и формат столбцов выберите сами. 
 Сохраните тесты на оба отчёта, пустой каталог и ошибку входного пути.
 
+## Запуск на примере из четырёх файлов
+
+Из корня проекта выполните:
+
+```powershell
+.\gradlew.bat run --args="core/src/test/resources/repo-analyzer-sample"
+```
+
+Пример вывода:
+
+```text
+Files and lines by extension:
+Extension | Files | Lines
+kt | 2 | 4
+md | 1 | 0
+
+Three longest files:
+File | Lines
+src/A.kt | 2
+src/B.kt | 2
+README.md | 0
+```
+
 # 3. Разделите проект и повторите проверку
 
 Перенесите обход файлов, подсчёт и сортировку в :core. 
@@ -86,9 +109,14 @@
 
 ## Прогноз после правки в :core
 
-Ожидаю, что `:core:compileKotlin` выполнится повторно, а `:cli:compileKotlin` останется `UP-TO-DATE`: изменится реализация внутри `:core`, но публичные сигнатуры и результат программы сохранятся.
+Ожидаю, что `:core:compileKotlin` выполнится повторно, а `:cli:compileKotlin` останется
+`UP-TO-DATE`: изменится реализация внутри `:core`, 
+но публичные сигнатуры и результат программы сохранятся.
 
-Правка: в `LineCounter.count` заменено тело с явным `return` на expression body; подсчёт по-прежнему выполняется через `useLines(Charsets.UTF_8) { it.count() }`. Поведение и публичная сигнатура не изменились.
+Правка: в `LineCounter.count` заменено тело с явным `return` 
+на expression body; подсчёт по-прежнему выполняется через 
+`useLines(Charsets.UTF_8) { it.count() }`. 
+Поведение и публичная сигнатура не изменились.
 
 ## Результат сборки после правки
 
@@ -97,4 +125,20 @@
     > Task :core:compileKotlin
     > Task :cli:compileKotlin UP-TO-DATE
 
-Результат совпал с прогнозом: исходник `:core` изменился, поэтому его компиляция выполнилась заново. Публичный API `:core` не изменился, исходники `:cli` остались прежними, поэтому Gradle оставил компиляцию CLI актуальной.
+Результат совпал с прогнозом: исходник `:core` изменился, 
+поэтому его компиляция выполнилась заново. 
+Публичный API `:core` не изменился, исходники `:cli` остались прежними, 
+поэтому Gradle оставил компиляцию CLI актуальной.
+
+# Ссылки для сдачи:
+
+- Монолит (коммит): https://github.com/R1z3-png/kfd-zhurba/commit/02b41628d7ee2a89124371409f1e70d282f60bf9  
+- Монолит (Actions): https://github.com/R1z3-png/kfd-zhurba/actions/runs/45766538119  
+
+
+- Модули (коммит): https://github.com/R1z3-png/kfd-zhurba/commit/a4d4ab1424fdc568d54be05b8236940524f49591  
+- Модули (Actions): https://github.com/R1z3-png/kfd-zhurba/actions/runs/45772089525  
+
+
+
+
