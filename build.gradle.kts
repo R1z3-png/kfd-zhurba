@@ -5,13 +5,13 @@ val runAnalyzer = tasks.register<JavaExec>("run") {
 }
 
 gradle.projectsEvaluated {
-    val appMainSourceSet = project(":app")
+    val cliMainSourceSet = project(":cli")
         .extensions
         .getByType<SourceSetContainer>()
         .getByName("main")
 
     runAnalyzer.configure {
-        dependsOn(":app:classes")
-        classpath = appMainSourceSet.runtimeClasspath
+        dependsOn(":cli:classes")
+        classpath = cliMainSourceSet.runtimeClasspath
     }
 }

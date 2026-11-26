@@ -7,7 +7,6 @@ class RepositoryAnalyzer(
     private val sourceFileCollector: SourceFileCollector = SourceFileCollector(),
     private val lineCounter: LineCounter = LineCounter(),
 ) {
-    /** Analyzes supported files below [root] and returns extension totals and the three longest files. */
     fun analyze(root: File): AnalysisResult {
         val analyzedFiles = sourceFileCollector.collect(root).map { file ->
             file.extension to FileLineCount(
